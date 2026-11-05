@@ -147,9 +147,9 @@
   }
 
   main { padding: 14px 16px 12px; }
-  .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
   h1 { font-size: 15px; margin: 0; letter-spacing: -.01em; }
-  #status { color: var(--muted); margin: 4px 0 14px; }
+  #status { color: var(--muted); margin: 2px 0 0; }
 
   /* Toggle switch */
   .switch {
@@ -217,10 +217,12 @@
 
   <main>
     <div class="head">
-      <h1>Feed Anchor</h1>
+      <div>
+        <h1>Feed Anchor</h1>
+        <p id="status">Keeps your place in the feed.</p>
+      </div>
       <button class="switch" id="toggle" role="switch" aria-checked="true" aria-label="Protection on"></button>
     </div>
-    <p id="status">Your feed stays put when you switch tabs.</p>
 
     <div class="stats">
       <div class="card"><b id="returns">0</b><span id="returns-label">reloads prevented</span></div>

@@ -13,8 +13,8 @@ function showState(on) {
   toggle.setAttribute("aria-checked", String(on));
   toggle.setAttribute("aria-label", on ? "Protection on" : "Protection paused");
   $("status").textContent = on
-    ? "Your feed stays put when you switch tabs."
-    : "Paused. Sites can refresh normally.";
+    ? "Keeps your place in the feed."
+    : "Paused. Feeds can refresh.";
 }
 
 // Restart a CSS animation class on an element
