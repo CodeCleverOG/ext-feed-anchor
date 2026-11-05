@@ -1,5 +1,4 @@
-// Runs in the extension's isolated world. Passes the on/off setting to
-// inject.js and forwards "you came back to the tab" events to the background.
+// Runs in the extension's isolated world. Passes the on/off setting to inject.js.
 (() => {
   const postState = (enabled) =>
     window.postMessage({ __feedAnchor: "state", active: enabled !== false }, location.origin);
@@ -12,13 +11,4 @@
   } catch (err) {
     // Extension was reloaded; refresh the page to reconnect
   }
-
-  window.addEventListener("message", (e) => {
-    if (e.source !== window || !e.data || e.data.__feedAnchor !== "event") return;
-    try {
-      chrome.runtime.sendMessage({ kind: "return" }).catch(() => {});
-    } catch (err) {
-      // Extension was reloaded; refresh the page to reconnect
-    }
-  });
 })();

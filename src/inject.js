@@ -14,17 +14,10 @@
   const realHasFocus = proto.hasFocus;
 
   const realState = () => {
-    try { return original.visibilityState.call(document); } catch (e) { return "unknown"; }
+    try { return original.visibilityState.call(document); } catch (e) { return "visible"; }
   };
 
-  const isTop = window === window.top;
   let active = true;
-  let lastState = realState();
-
-  // Only the main page reports, so embedded frames don't create duplicates
-  const sendReturn = () => {
-    if (isTop) window.postMessage({ __feedAnchor: "event", type: "return" }, location.origin);
-  };
 
   // Report visible/focused while active; pass through the real values while paused
   const fake = { hidden: false, webkitHidden: false, visibilityState: "visible", webkitVisibilityState: "visible" };
@@ -45,15 +38,7 @@
 
   // Swallow visibility events before the site's listeners see them
   const onVisibility = (e) => {
-    let cameBack = false;
-    if (e.type === "visibilitychange") {
-      const now = realState();
-      cameBack = lastState === "hidden" && now === "visible";
-      lastState = now;
-    }
-    if (!active) return;
-    e.stopImmediatePropagation();
-    if (cameBack) sendReturn();
+    if (active) e.stopImmediatePropagation();
   };
   for (const type of ["visibilitychange", "webkitvisibilitychange"]) {
     window.addEventListener(type, onVisibility, true);
@@ -71,6 +56,5 @@
   window.addEventListener("message", (e) => {
     if (e.source !== window || !e.data || e.data.__feedAnchor !== "state") return;
     active = e.data.active !== false;
-    lastState = realState();
   });
 })();

@@ -38,8 +38,6 @@ Sites usually refresh on return by listening for the [Page Visibility API](https
 2. **Stops the events.** It catches `visibilitychange` and window-level `focus`/`blur` events before the site's listeners see them. Focus events on inputs and other elements are left alone.
 3. **Keeps the tab loaded.** It marks supported tabs as not auto-discardable, so Chrome's Memory Saver doesn't unload them in the background.
 
-When you come back to the tab, `inject.js` counts it as a prevented reload. `bridge.js` forwards that to the background worker, which keeps the counters and badge.
-
 The popup switch turns all of this off and on live. When it's off, the page sees the real visibility and focus values again and tabs can be discarded normally.
 
 ```
@@ -47,20 +45,20 @@ src/
   manifest.json   Manifest V3
   sites.js        list of supported sites
   inject.js       page-context script (visibility/focus overrides)
-  bridge.js       passes the on/off setting in and events out
-  background.js   counters, badge, Memory Saver protection
+  bridge.js       passes the on/off setting to inject.js
+  background.js   Memory Saver protection, OFF badge
   popup.html/js   the popup UI
 ```
 
 ## Privacy
 
-There is no data collection, network requests, analytics or remote code. The on/off setting and the counters stay in local extension storage. See [PRIVACY.md](PRIVACY.md).
+There is no data collection, network requests, analytics or remote code. The only thing stored is the on/off setting, in local extension storage. See [PRIVACY.md](PRIVACY.md).
 
 ## Permissions
 
 | Permission | Why |
 | --- | --- |
-| `storage` | Saves the on/off setting and counters on your device. |
+| `storage` | Saves the on/off setting on your device. |
 | Access to supported sites (`linkedin.com`) | Runs the scripts above and keeps those tabs from being discarded. |
 
 ## Development

@@ -1,57 +1,18 @@
 importScripts("sites.js");
 
-const BRAND = "#0f766e";
 const MATCHES = SITES.map((s) => s.match);
-
-const fresh = () => ({ since: Date.now(), returns: 0, byDay: {} });
-const today = () => new Date().toLocaleDateString("en-CA");
 
 async function isEnabled() {
   const { enabled } = await chrome.storage.local.get("enabled");
   return enabled !== false;
 }
 
-// Serialize writes so quick events don't overwrite each other
-let queue = Promise.resolve();
-function mutate(fn) {
-  queue = queue.then(async () => {
-    const { stats = fresh() } = await chrome.storage.local.get("stats");
-    fn(stats);
-    const days = Object.keys(stats.byDay).sort();
-    while (days.length > 30) delete stats.byDay[days.shift()];
-    await chrome.storage.local.set({ stats });
-  }).catch(console.error);
-  return queue;
-}
-
+// The badge only appears while paused, as a reminder that protection is off
 async function updateBadge() {
-  const [{ stats }, enabled] = await Promise.all([chrome.storage.local.get("stats"), isEnabled()]);
-  if (!enabled) {
-    await chrome.action.setBadgeText({ text: "OFF" });
-    await chrome.action.setBadgeBackgroundColor({ color: "#9ca3af" });
-    return;
-  }
-  const n = stats ? stats.returns : 0;
-  await chrome.action.setBadgeText({ text: !n ? "" : n > 999 ? "1k+" : String(n) });
-  await chrome.action.setBadgeBackgroundColor({ color: BRAND });
+  const on = await isEnabled();
+  await chrome.action.setBadgeText({ text: on ? "" : "OFF" });
+  await chrome.action.setBadgeBackgroundColor({ color: "#9ca3af" });
 }
-
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg.kind === "return") {
-    isEnabled().then((on) => {
-      if (!on) return;
-      mutate((s) => {
-        s.returns++;
-        const d = today();
-        s.byDay[d] = (s.byDay[d] || 0) + 1;
-      });
-    });
-  } else if (msg.kind === "reset") {
-    queue = queue.then(() => chrome.storage.local.set({ stats: fresh() }));
-    queue.then(() => sendResponse({ ok: true }));
-    return true;
-  }
-});
 
 // Keep Chrome's Memory Saver from unloading supported tabs while active
 function setDiscardable(tab, discardable) {
@@ -72,9 +33,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== "local") return;
-  if (changes.enabled) applyToAllTabs();
-  if (changes.enabled || changes.stats) updateBadge();
+  if (area === "local" && changes.enabled) {
+    applyToAllTabs();
+    updateBadge();
+  }
 });
 
 async function init() {
@@ -82,4 +44,8 @@ async function init() {
   await updateBadge();
 }
 chrome.runtime.onStartup.addListener(init);
-chrome.runtime.onInstalled.addListener(init);
+chrome.runtime.onInstalled.addListener(async () => {
+  // Counters from earlier versions are no longer used
+  await chrome.storage.local.remove("stats");
+  await init();
+});

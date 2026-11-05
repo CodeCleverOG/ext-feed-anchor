@@ -17,7 +17,7 @@ Issues and pull requests are welcome.
 ## Testing a change
 
 1. Load `src/` unpacked from `chrome://extensions` (Developer mode), then click the reload icon after each change.
-2. Open the site, scroll down the feed, switch to another tab for a few seconds and come back. The feed should not refresh, and the badge count should go up.
+2. Open the site, scroll down the feed, switch to another tab for a few seconds and come back. The feed should not refresh.
 3. Turn the switch off in the popup. Without reloading the page, switch away and back: the site should behave normally (it may refresh). Turn it on again and check that protection resumes.
 4. In `chrome://discards`, protected tabs should show **Auto Discardable** unchecked while on, and checked while off.
 

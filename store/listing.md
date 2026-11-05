@@ -21,7 +21,7 @@ HOW IT WORKS
 • On supported sites, the page sees the tab as always visible and focused, so it has no reason to refresh.
 • Chrome's Memory Saver won't unload those tabs in the background.
 • Pause or resume with one tap. It applies instantly, with no page reload.
-• See how many reloads were prevented, in total and today.
+• See at a glance which tabs are protected.
 
 SUPPORTED SITES
 • LinkedIn
@@ -50,9 +50,9 @@ Stops supported social sites from automatically refreshing the feed when the use
 
 **Permission justifications:**
 
-- `storage` — Saves the user's on/off setting and local counters of prevented reloads. Nothing leaves the device.
+- `storage` — Saves the user's on/off setting locally. Nothing leaves the device.
 - Host permission `https://www.linkedin.com/*` — Needed to run the extension's content scripts on LinkedIn, which is the only site it acts on, and to mark open LinkedIn tabs as not auto-discardable so Chrome's Memory Saver doesn't reload them.
-- Content script in the page's main world (`inject.js`) — It runs inside LinkedIn's page context so LinkedIn sees the tab as always visible and focused. It overrides `document.hidden`, `document.visibilityState` and `document.hasFocus()`, and stops `visibilitychange` and window-level `focus`/`blur` events before the page's listeners receive them. This is what keeps the site from reloading the feed when the user returns. It does not read or change page content, and it sends nothing off the device. A second isolated-world script (`bridge.js`) only passes the on/off setting to it and forwards a "tab returned" count to the extension's background worker.
+- Content script in the page's main world (`inject.js`) — It runs inside LinkedIn's page context so LinkedIn sees the tab as always visible and focused. It overrides `document.hidden`, `document.visibilityState` and `document.hasFocus()`, and stops `visibilitychange` and window-level `focus`/`blur` events before the page's listeners receive them. This is what keeps the site from reloading the feed when the user returns. It does not read or change page content, and it sends nothing off the device. A second isolated-world script (`bridge.js`) only passes the user's on/off setting to it.
 
 **Remote code:** No, I am not using remote code. All JavaScript is packaged in the extension.
 

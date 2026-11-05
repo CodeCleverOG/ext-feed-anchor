@@ -6,8 +6,8 @@ tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 LIGHT="--blink-settings=preferredColorScheme=1"
 DARK="--blink-settings=preferredColorScheme=0"
 
-SCALE=2 CHROME_FLAGS="$LIGHT" scripts/preview-popup.sh "$tmp/on.png" "returns=148&today=9&tabs=2" 360
-SCALE=2 CHROME_FLAGS="$DARK"  scripts/preview-popup.sh "$tmp/off.png" "enabled=0&returns=148&today=9&tabs=2" 360
+SCALE=2 CHROME_FLAGS="$LIGHT" scripts/preview-popup.sh "$tmp/on.png" "tabs=2" 240
+SCALE=2 CHROME_FLAGS="$DARK"  scripts/preview-popup.sh "$tmp/off.png" "enabled=0&tabs=2" 240
 
 enc() { python3 -c 'import sys,urllib.parse;print(urllib.parse.quote(sys.argv[1]))' "$1"; }
 shot() { # out theme img headline text

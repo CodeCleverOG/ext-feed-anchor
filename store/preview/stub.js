@@ -1,14 +1,9 @@
 // Fake chrome.* API so popup.html can be rendered outside the extension
-// for store screenshots. Configure with ?enabled=0&returns=N&today=N&tabs=N&frame=drop:0.3
+// for store screenshots. Configure with ?enabled=0&tabs=N&frame=drop:0.3
 (() => {
   const q = new URLSearchParams(location.search);
   const num = (k, d) => (q.has(k) ? Number(q.get(k)) : d);
-  const since = Date.now() - 12 * 86400000;
-  const todayKey = new Date().toLocaleDateString("en-CA");
-  const data = {
-    enabled: q.get("enabled") !== "0",
-    stats: { since, returns: num("returns", 148), byDay: { [todayKey]: num("today", 9) } }
-  };
+  const data = { enabled: q.get("enabled") !== "0" };
   const pick = (k) => (typeof k === "string" ? { [k]: data[k] } : { ...data });
   window.chrome = {
     storage: {
