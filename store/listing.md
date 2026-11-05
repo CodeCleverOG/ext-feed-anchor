@@ -7,7 +7,7 @@ Copy these into the Developer Dashboard. Images are in this folder.
 **Name:** Feed Anchor
 
 **Summary (≤132 chars):**
-Keeps your social feed where you left it. Stops auto-refresh when you return to the tab. Currently supports LinkedIn.
+Keeps your social feed where you left it. Stops auto-refresh when you return to the tab. Currently supports LinkedIn and X.
 
 **Category:** Productivity  **Language:** English
 
@@ -25,6 +25,7 @@ HOW IT WORKS
 
 SUPPORTED SITES
 • LinkedIn
+• X (Twitter)
 More platforms are coming.
 
 PRIVATE BY DESIGN
@@ -32,7 +33,7 @@ PRIVATE BY DESIGN
 • No network requests. Everything stays on your device.
 • Open source (MIT): https://github.com/CodeCleverOG/prod-feed-anchor
 
-Feed Anchor is an independent project and is not affiliated with or endorsed by LinkedIn.
+Feed Anchor is an independent project and is not affiliated with or endorsed by LinkedIn or X.
 ```
 
 **Images:**
@@ -51,8 +52,8 @@ Stops supported social sites from automatically refreshing the feed when the use
 **Permission justifications:**
 
 - `storage` — Saves the user's on/off setting locally. Nothing leaves the device.
-- Host permission `https://www.linkedin.com/*` — Needed to run the extension's content scripts on LinkedIn, which is the only site it acts on, and to mark open LinkedIn tabs as not auto-discardable so Chrome's Memory Saver doesn't reload them.
-- Content script in the page's main world (`inject.js`) — It runs inside LinkedIn's page context so LinkedIn sees the tab as always visible and focused. It overrides `document.hidden`, `document.visibilityState` and `document.hasFocus()`, and stops `visibilitychange` and window-level `focus`/`blur` events before the page's listeners receive them. This is what keeps the site from reloading the feed when the user returns. It does not read or change page content, and it sends nothing off the device. A second isolated-world script (`bridge.js`) only passes the user's on/off setting to it.
+- Host permissions `https://www.linkedin.com/*` and `https://x.com/*` — Needed to run the extension's content scripts on LinkedIn and X, the only sites it acts on, and to mark open tabs on those sites as not auto-discardable so Chrome's Memory Saver doesn't reload them.
+- Content script in the page's main world (`inject.js`) — It runs inside the supported site's page context so the site sees the tab as always visible and focused. It overrides `document.hidden`, `document.visibilityState` and `document.hasFocus()`, and stops `visibilitychange` and window-level `focus`/`blur` events before the page's listeners receive them. This is what keeps the site from reloading the feed when the user returns. It does not read or change page content, and it sends nothing off the device. A second isolated-world script (`bridge.js`) only passes the user's on/off setting to it.
 
 **Remote code:** No, I am not using remote code. All JavaScript is packaged in the extension.
 

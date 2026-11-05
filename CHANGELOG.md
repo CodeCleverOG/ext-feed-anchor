@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 — 2026-11-06
+
+- Added support for X (Twitter) on `x.com`. Links to `twitter.com` redirect there.
+
 ## 1.0.0 — 2026-11-06
 
 First public release, renamed from "LinkedIn No Auto-Reload" to **Feed Anchor**.

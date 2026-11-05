@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Feed Anchor",
   "short_name": "Feed Anchor",
-  "version": "1.0.0",
-  "description": "Keeps your social feed where you left it. Stops auto-refresh when you return to the tab. Currently supports LinkedIn.",
+  "version": "1.1.0",
+  "description": "Keeps your social feed where you left it. Stops auto-refresh when you return to the tab. Currently supports LinkedIn and X.",
   "author": "Qandeel Abbassi",
   "homepage_url": "https://github.com/CodeCleverOG/prod-feed-anchor",
   "minimum_chrome_version": "111",
@@ -14,7 +14,7 @@
     "128": "icons/icon128.png"
   },
   "permissions": ["storage"],
-  "host_permissions": ["https://www.linkedin.com/*"],
+  "host_permissions": ["https://www.linkedin.com/*", "https://x.com/*"],
   "background": { "service_worker": "background.js" },
   "action": {
     "default_popup": "popup.html",
@@ -26,14 +26,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.linkedin.com/*"],
+      "matches": ["https://www.linkedin.com/*", "https://x.com/*"],
       "js": ["inject.js"],
       "run_at": "document_start",
       "world": "MAIN",
       "all_frames": true
     },
     {
-      "matches": ["https://www.linkedin.com/*"],
+      "matches": ["https://www.linkedin.com/*", "https://x.com/*"],
       "js": ["bridge.js"],
       "run_at": "document_start",
       "all_frames": true

@@ -18,6 +18,7 @@ Some sites reload the feed whenever you return to the tab. If you were halfway t
 | Site | Status |
 | --- | --- |
 | LinkedIn | ✅ Supported |
+| X (Twitter) | ✅ Supported |
 
 More platforms are planned. See [CONTRIBUTING.md](CONTRIBUTING.md) to add one.
 
@@ -59,7 +60,7 @@ There is no data collection, network requests, analytics or remote code. The onl
 | Permission | Why |
 | --- | --- |
 | `storage` | Saves the on/off setting on your device. |
-| Access to supported sites (`linkedin.com`) | Runs the scripts above and keeps those tabs from being discarded. |
+| Access to supported sites (`linkedin.com`, `x.com`) | Runs the scripts above and keeps those tabs from being discarded. |
 
 ## Development
 
@@ -77,4 +78,4 @@ The scripts need macOS or Linux with Google Chrome (used headless to render imag
 
 ---
 
-Feed Anchor is an independent project. It is not affiliated with, endorsed by or sponsored by LinkedIn Corporation. LinkedIn is a trademark of LinkedIn Corporation.
+Feed Anchor is an independent project. It is not affiliated with, endorsed by or sponsored by LinkedIn Corporation or X Corp. LinkedIn is a trademark of LinkedIn Corporation. X is a trademark of X Corp.
