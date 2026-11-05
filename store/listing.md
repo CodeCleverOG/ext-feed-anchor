@@ -30,7 +30,7 @@ More platforms are coming.
 PRIVATE BY DESIGN
 • No data collection, analytics or tracking.
 • No network requests. Everything stays on your device.
-• Open source (MIT): https://github.com/OWNER/REPO
+• Open source (MIT): https://github.com/CodeCleverOG/prod-feed-anchor
 
 Feed Anchor is an independent project and is not affiliated with or endorsed by LinkedIn.
 ```
@@ -40,8 +40,8 @@ Feed Anchor is an independent project and is not affiliated with or endorsed by 
 - Screenshots (1280×800): `store/screenshot-1.png`, `store/screenshot-2.png`
 - Small promo tile (440×280): `store/promo-440x280.png`
 
-**Homepage URL:** https://github.com/OWNER/REPO
-**Support URL:** https://github.com/OWNER/REPO/issues
+**Homepage URL:** https://github.com/CodeCleverOG/prod-feed-anchor
+**Support URL:** https://github.com/CodeCleverOG/prod-feed-anchor/issues
 
 ## Privacy practices tab
 
@@ -61,7 +61,7 @@ Stops supported social sites from automatically refreshing the feed when the use
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose.
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.
 
-**Privacy policy URL:** https://github.com/OWNER/REPO/blob/main/PRIVACY.md
+**Privacy policy URL:** https://github.com/CodeCleverOG/prod-feed-anchor/blob/main/PRIVACY.md
 
 ## Distribution tab
 - Visibility: Public
