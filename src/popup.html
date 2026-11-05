@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Feed Anchor</title>
+<style>
+  :root {
+    --brand: #0f766e;
+    --brand-strong: #115e59;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bg: #ffffff;
+    --card: #f1f5f4;
+    --line: #e5e7eb;
+    --off: #9ca3af;
+    --sky: #ecfdf8;
+    --water-top: #99e6d6;
+    --water-bottom: #3fb8a5;
+    --seabed: #2c8c7e;
+    --ripple: rgba(15, 118, 110, .55);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --brand: #2dd4bf;
+      --brand-strong: #5eead4;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --bg: #111827;
+      --card: #1f2937;
+      --line: #374151;
+      --off: #6b7280;
+      --sky: #0f1f24;
+      --water-top: #155e63;
+      --water-bottom: #0b3b40;
+      --seabed: #082a2e;
+      --ripple: rgba(255, 255, 255, .8);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    width: 300px;
+    font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* Header scene: the anchor rests on the seabed while active, hangs above water while paused */
+  .scene {
+    position: relative;
+    height: 112px;
+    overflow: hidden;
+    background: var(--sky);
+    transition: filter .5s ease;
+  }
+  .paused .scene { filter: grayscale(.85) brightness(1.02); }
+  .water {
+    position: absolute; left: 0; right: 0; top: 46px; bottom: 0;
+    background: linear-gradient(var(--water-top), var(--water-bottom));
+  }
+  .wave {
+    position: absolute; left: 0; top: -7px; width: 600px; height: 8px;
+    color: var(--water-top);
+    animation: drift 6s linear infinite;
+  }
+  .seabed {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+    background: var(--seabed);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  @keyframes drift { to { transform: translateX(-300px); } }
+
+  .anchor {
+    position: absolute; left: 50%; bottom: 8px;
+    width: 52px; height: 52px; margin-left: -26px;
+    color: var(--brand);
+    transform-origin: 50% 0;
+    transition: color .4s ease;
+    overflow: visible;
+    animation: sway 4s ease-in-out infinite;
+  }
+  .anchor .rope { stroke-dasharray: 3 2.5; opacity: .55; }
+  .paused .anchor {
+    color: var(--off);
+    transform: translateY(-46px);
+    animation: none;
+  }
+  @keyframes sway {
+    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+    50% { transform: translateY(0) rotate(1.5deg); }
+  }
+
+  /* Activate: drop, overshoot, settle with a bob */
+  .anchor.drop { animation: drop .75s cubic-bezier(.45, 0, .55, 1) both; }
+  @keyframes drop {
+    0%   { transform: translateY(-46px); animation-timing-function: cubic-bezier(.5, 0, .9, .4); }
+    50%  { transform: translateY(5px); }
+    66%  { transform: translateY(-4px); }
+    82%  { transform: translateY(1.5px); }
+    100% { transform: translateY(0); }
+  }
+  /* Deactivate: heave up with a sway, then hang */
+  .anchor.lift { animation: lift .6s ease-out both; }
+  @keyframes lift {
+    0%   { transform: translateY(0) rotate(0); }
+    45%  { transform: translateY(-36px) rotate(-7deg); }
+    75%  { transform: translateY(-49px) rotate(4deg); }
+    100% { transform: translateY(-46px) rotate(0); }
+  }
+
+  .ripple {
+    position: absolute; left: 50%; top: 40px;
+    width: 70px; height: 14px; margin-left: -35px;
+    border: 2px solid var(--ripple);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ripple.go { animation: ripple .8s ease-out .12s both; }
+  .ripple.go.r2 { animation-delay: .3s; }
+  @keyframes ripple {
+    0%   { opacity: .9; transform: scale(.2); }
+    100% { opacity: 0; transform: scale(1.8); }
+  }
+
+  .bubble {
+    position: absolute; bottom: 20px;
+    width: 5px; height: 5px; border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, .8);
+    opacity: 0;
+  }
+  .bubble.go { animation: bubble 1.2s ease-out both; }
+  .b1 { left: calc(50% - 22px); animation-delay: .45s !important; }
+  .b2 { left: calc(50% + 18px); animation-delay: .6s !important; width: 4px; height: 4px; }
+  .b3 { left: calc(50% - 6px);  animation-delay: .75s !important; }
+  @keyframes bubble {
+    0%   { opacity: 0; transform: translateY(0); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-50px) translateX(4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave, .anchor { animation: none !important; }
+    .anchor.drop, .anchor.lift { animation: none !important; }
+    .ripple, .bubble { display: none; }
+  }
+
+  main { padding: 14px 16px 12px; }
+  .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  h1 { font-size: 15px; margin: 0; letter-spacing: -.01em; }
+  #status { color: var(--muted); margin: 4px 0 14px; }
+
+  /* Toggle switch */
+  .switch {
+    position: relative; flex: none;
+    width: 46px; height: 26px; padding: 0;
+    border: 0; border-radius: 13px;
+    background: var(--brand);
+    cursor: pointer;
+    transition: background .25s ease;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 3px; left: 23px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+    transition: left .25s cubic-bezier(.3, .7, .4, 1.2);
+  }
+  .switch[aria-checked="false"] { background: var(--off); }
+  .switch[aria-checked="false"]::after { left: 3px; }
+  .switch:focus-visible { outline: 2px solid var(--brand-strong); outline-offset: 2px; }
+
+  .stats { display: flex; gap: 8px; margin-bottom: 14px; transition: opacity .3s ease; }
+  .paused .stats { opacity: .5; }
+  .card { flex: 1; background: var(--card); border-radius: 10px; padding: 10px 12px; }
+  .card b { display: block; font-size: 22px; line-height: 1.1; color: var(--brand); font-variant-numeric: tabular-nums; }
+  .paused .card b { color: var(--muted); }
+  .card span { font-size: 11.5px; color: var(--muted); }
+
+  h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 4px; font-weight: 600; }
+  ul { list-style: none; margin: 0 0 10px; padding: 0; }
+  li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  li:last-child { border-bottom: 0; }
+  li .state { color: var(--muted); }
+  li .state.on { color: var(--brand); }
+
+  footer { display: flex; justify-content: flex-end; gap: 6px; font-size: 11.5px; color: var(--muted); }
+  .link { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+  .link:hover { color: var(--text); }
+  .link.danger { color: #dc2626; }
+  [hidden] { display: none !important; }
+  .init, .init * { transition: none !important; }
+</style>
+</head>
+<body class="init">
+  <div class="scene" aria-hidden="true">
+    <div class="water">
+      <svg class="wave" viewBox="0 0 600 8" preserveAspectRatio="none">
+        <path fill="currentColor" d="M0 8V4C25 0 50 0 75 4S125 8 150 4 200 0 225 4 275 8 300 4 350 0 375 4 425 8 450 4 500 0 525 4 575 8 600 4V8Z"/>
+      </svg>
+      <div class="seabed"></div>
+    </div>
+    <span class="ripple r1"></span>
+    <span class="ripple r2"></span>
+    <span class="bubble b1"></span>
+    <span class="bubble b2"></span>
+    <span class="bubble b3"></span>
+    <svg class="anchor" id="anchor" viewBox="0 0 64 64">
+      <line class="rope" x1="32" y1="5" x2="32" y2="-120" stroke="currentColor" stroke-width="2"/>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="10" r="5"/>
+        <path d="M32 15V56M21 24H43M11 37C12 49 21 56 32 56S52 49 53 37"/>
+      </g>
+      <path fill="currentColor" d="M4 41 11 30 18 40ZM60 41 53 30 46 40Z"/>
+    </svg>
+  </div>
+
+  <main>
+    <div class="head">
+      <h1>Feed Anchor</h1>
+      <button class="switch" id="toggle" role="switch" aria-checked="true" aria-label="Protection on"></button>
+    </div>
+    <p id="status">Your feed stays put when you switch tabs.</p>
+
+    <div class="stats">
+      <div class="card"><b id="returns">0</b><span id="returns-label">reloads prevented</span></div>
+      <div class="card"><b id="today">0</b><span>today</span></div>
+    </div>
+
+    <h2>Supported sites</h2>
+    <ul id="sites"></ul>
+
+    <footer>
+      <button class="link" id="reset">Reset counters</button>
+      <span id="confirm" hidden>Reset counters?
+        <button class="link danger" id="reset-yes">Yes</button> ·
+        <button class="link" id="reset-no">No</button>
+      </span>
+    </footer>
+  </main>
+
+  <script src="sites.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

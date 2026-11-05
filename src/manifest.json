@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Feed Anchor",
+  "short_name": "Feed Anchor",
+  "version": "1.0.0",
+  "description": "Keeps your social feed where you left it. Stops auto-refresh when you return to the tab. Currently supports LinkedIn.",
+  "author": "Qandeel Abbassi",
+  "homepage_url": "https://github.com/OWNER/REPO",
+  "minimum_chrome_version": "111",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.linkedin.com/*"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Feed Anchor",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}

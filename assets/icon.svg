@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Chrome Web Store guideline: 96x96 artwork inside a 128x128 canvas -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="96" height="96" rx="24" fill="url(#bg)"/>
+  <g transform="translate(32 32)">
+    <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="10" r="5"/>
+      <path d="M32 15V56M21 24H43M11 37C12 49 21 56 32 56S52 49 53 37"/>
+    </g>
+    <path fill="#fff" d="M4 41 11 30 18 40ZM60 41 53 30 46 40Z"/>
+  </g>
+</svg>
