@@ -1,5 +1,6 @@
 // Fake chrome.* API so popup.html can be rendered outside the extension
-// for store screenshots. Configure with ?enabled=0&tabs=N&frame=drop:0.3
+// for store screenshots. Configure with ?enabled=0&tabs=N[,N...]&frame=drop:0.3
+// tabs takes one count per site, in sites.js order.
 (() => {
   const q = new URLSearchParams(location.search);
   const num = (k, d) => (q.has(k) ? Number(q.get(k)) : d);
@@ -10,7 +11,14 @@
       local: { get: async (k) => pick(k), set: async (o) => Object.assign(data, o) },
       onChanged: { addListener() {} }
     },
-    tabs: { query: async () => Array.from({ length: num("tabs", 2) }, () => ({})) },
+    tabs: {
+      query: async ({ url }) => {
+        const counts = (q.get("tabs") || "2").split(",").map(Number);
+        const i = Math.max(0, (window.SITES || []).findIndex((s) => s.match === url));
+        const n = counts[Math.min(i, counts.length - 1)];
+        return Array.from({ length: n }, () => ({}));
+      }
+    },
     runtime: { sendMessage: async () => ({ ok: true }) }
   };
 

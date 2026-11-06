@@ -6,8 +6,8 @@ tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 LIGHT="--blink-settings=preferredColorScheme=1"
 DARK="--blink-settings=preferredColorScheme=0"
 
-SCALE=2 CHROME_FLAGS="$LIGHT" scripts/preview-popup.sh "$tmp/on.png" "tabs=2" 240
-SCALE=2 CHROME_FLAGS="$DARK"  scripts/preview-popup.sh "$tmp/off.png" "enabled=0&tabs=2" 240
+SCALE=2 CHROME_FLAGS="$LIGHT" scripts/preview-popup.sh "$tmp/on.png" "tabs=2,1" 278
+SCALE=2 CHROME_FLAGS="$DARK"  scripts/preview-popup.sh "$tmp/off.png" "enabled=0&tabs=2,1" 278
 
 enc() { python3 -c 'import sys,urllib.parse;print(urllib.parse.quote(sys.argv[1]))' "$1"; }
 shot() { # out theme img headline text
@@ -18,7 +18,7 @@ shot() { # out theme img headline text
 }
 shot store/screenshot-1.png light "$tmp/on.png" \
   "Your feed stays where you left it." \
-  "Switch tabs, come back, keep scrolling. Feed Anchor stops the automatic refresh that throws away what you were reading."
+  "Switch tabs, come back, keep scrolling. On LinkedIn and X, Feed Anchor stops the automatic refresh that throws away what you were reading."
 shot store/screenshot-2.png dark "$tmp/off.png" \
   "Pause it with one tap." \
   "Turn protection off and on anytime. It applies instantly, with no page reload."

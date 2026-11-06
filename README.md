@@ -24,12 +24,25 @@ More platforms are planned. See [CONTRIBUTING.md](CONTRIBUTING.md) to add one.
 
 ## Install
 
-**Chrome Web Store:** _link coming soon_
+**Chrome Web Store:** coming soon. Until then, install it in about a minute:
 
-**From source:**
+1. **Download**: go to the [latest release](https://github.com/CodeCleverOG/prod-feed-anchor/releases/latest) and click **feed-anchor-x.x.x.zip** under *Assets*.
+2. **Unzip it**: double-click the downloaded file. You'll get a folder. Move it somewhere it can stay (like Documents). If you delete it, the extension stops working.
+3. **Open the extensions page**: type `chrome://extensions` in the address bar and press Enter.
+4. **Turn on Developer mode**: the switch in the top-right corner.
+5. **Click "Load unpacked"** (top-left) and choose the folder from step 2.
+6. **Pin it**: click the puzzle-piece icon next to the address bar, then the pin next to Feed Anchor.
+
+Done. Open LinkedIn or X, and your feed will stay put when you switch tabs.
+
+<details>
+<summary>For developers: install from source</summary>
+
 1. Clone this repo.
 2. Open `chrome://extensions` and turn on **Developer mode**.
 3. Click **Load unpacked** and select the `src/` folder.
+
+</details>
 
 ## How it works
 
