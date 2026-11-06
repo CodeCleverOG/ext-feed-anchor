@@ -18,7 +18,7 @@ shot() { # out theme img headline text
 }
 shot store/screenshot-1.png light "$tmp/on.png" \
   "Your feed stays where you left it." \
-  "Switch tabs, come back, keep scrolling. On LinkedIn and X, Feed Anchor stops the automatic refresh that throws away what you were reading."
+  "Switch tabs, come back, keep scrolling. Feed Anchor stops the automatic refresh that throws away what you were reading."
 shot store/screenshot-2.png dark "$tmp/off.png" \
   "Pause it with one tap." \
   "Turn protection off and on anytime. It applies instantly, with no page reload."
