@@ -26,7 +26,7 @@ More platforms are planned. See [CONTRIBUTING.md](CONTRIBUTING.md) to add one.
 
 **Chrome Web Store:** coming soon. Until then, install it in about a minute:
 
-1. **Download**: go to the [latest release](https://github.com/CodeCleverOG/prod-feed-anchor/releases/latest) and click **feed-anchor-x.x.x.zip** under *Assets*.
+1. **Download**: go to the [latest release](https://github.com/CodeCleverOG/ext-feed-anchor/releases/latest) and click **feed-anchor-x.x.x.zip** under *Assets*.
 2. **Unzip it**: double-click the downloaded file. You'll get a folder. Move it somewhere it can stay (like Documents). If you delete it, the extension stops working.
 3. **Open the extensions page**: type `chrome://extensions` in the address bar and press Enter.
 4. **Turn on Developer mode**: the switch in the top-right corner.

@@ -9,4 +9,4 @@ Feed Anchor does not collect, store, sell or transmit any personal data.
 - **Page content:** the extension does not read, record or change the content of the pages you visit. On supported sites it only changes how the page sees tab visibility and window focus.
 - **Removing data:** uninstall the extension, which deletes the setting.
 
-Questions: open an issue at https://github.com/CodeCleverOG/prod-feed-anchor/issues.
+Questions: open an issue at https://github.com/CodeCleverOG/ext-feed-anchor/issues.
