@@ -12,6 +12,10 @@
   h1 { font-size: 54px; line-height: 1.08; letter-spacing: -.02em; margin: 0 0 22px; }
   p { font-size: 22px; line-height: 1.5; margin: 0; color: #475569; max-width: 520px; }
   .dark p { color: #9ca3af; }
+  .chips { display: flex; gap: 10px; margin-top: 28px; }
+  .chips span { font-size: 16px; font-weight: 600; color: #0f766e; background: rgba(255,255,255,.7);
+                border: 1.5px solid rgba(15,118,110,.35); border-radius: 99px; padding: 7px 15px; }
+  .dark .chips span { color: #5eead4; background: rgba(255,255,255,.04); border-color: rgba(94,234,212,.35); }
   .shot { width: 600px; border-radius: 18px; overflow: hidden; flex: none;
           box-shadow: 0 30px 80px rgba(15, 118, 110, .25), 0 4px 14px rgba(0,0,0,.12); }
   .shot img { display: block; width: 100%; }
@@ -19,6 +23,7 @@
   <div class="copy">
     <div class="brand"><img src="../../src/icons/icon128.png" alt="">Feed Anchor</div>
     <h1 id="h"></h1><p id="p"></p>
+    <div class="chips" id="chips" hidden><span>Free</span><span>No tracking</span><span>Open source</span></div>
   </div>
   <div class="shot"><img id="img" alt=""></div>
 <script>
@@ -26,5 +31,6 @@
   document.getElementById("h").textContent = q.get("h");
   document.getElementById("p").textContent = q.get("p");
   document.getElementById("img").src = q.get("img");
+  if (q.has("chips")) document.getElementById("chips").hidden = false;
   if (q.get("theme") === "dark") document.body.className = "dark";
 </script></body></html>
