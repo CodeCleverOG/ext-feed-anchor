@@ -7,6 +7,8 @@
 <p align="center">Your feed stays where you left it.<br>
 A Chrome extension that stops social feeds from auto-refreshing when you switch back to the tab.</p>
 
+<p align="center"><a href="https://chromewebstore.google.com/detail/cfmhfbajdkpapdppiblanjmgnajimjcb?utm_source=github"><b>Add to Chrome →</b></a></p>
+
 <p align="center"><img src="store/screenshot-1.png" width="720" alt="Feed Anchor popup"></p>
 
 ## Why
@@ -24,16 +26,25 @@ More platforms are planned. See [CONTRIBUTING.md](CONTRIBUTING.md) to add one.
 
 ## Install
 
-**Chrome Web Store:** coming soon. Until then, install it in about a minute:
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/cfmhfbajdkpapdppiblanjmgnajimjcb?utm_source=github)**, then:
+
+1. Click **Add to Chrome**.
+2. **Pin it**: click the puzzle-piece icon next to the address bar, then the pin next to Feed Anchor.
+
+Done. Open LinkedIn or X, and your feed will stay put when you switch tabs.
+
+<details>
+<summary>Install manually from a release</summary>
 
 1. **Download**: go to the [latest release](https://github.com/CodeCleverOG/ext-feed-anchor/releases/latest) and click **feed-anchor-x.x.x.zip** under *Assets*.
 2. **Unzip it**: double-click the downloaded file. You'll get a folder. Move it somewhere it can stay (like Documents). If you delete it, the extension stops working.
 3. **Open the extensions page**: type `chrome://extensions` in the address bar and press Enter.
 4. **Turn on Developer mode**: the switch in the top-right corner.
 5. **Click "Load unpacked"** (top-left) and choose the folder from step 2.
-6. **Pin it**: click the puzzle-piece icon next to the address bar, then the pin next to Feed Anchor.
 
-Done. Open LinkedIn or X, and your feed will stay put when you switch tabs.
+A manual install doesn't update itself. Repeat these steps to get a new version.
+
+</details>
 
 <details>
 <summary>For developers: install from source</summary>
